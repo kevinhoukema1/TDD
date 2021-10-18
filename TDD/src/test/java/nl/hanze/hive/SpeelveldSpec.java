@@ -127,8 +127,9 @@ public class SpeelveldSpec {
         board.setTile(spoderCoordinate, spoderTile);
         System.out.println(board.getCurrentBoard());
 
+
         //assert
         // assertEquals(expected, actual);
-        assertEquals(3, beeTile);
+        assertEquals(2, board.getCurrentBoard().get(new Coordinate(0,0)).size());
     }
 }

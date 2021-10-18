@@ -1,6 +1,7 @@
 package nl.hanze.hive;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 public class Board {
     private HashMap<Coordinate, Tile> currentBoard;
@@ -15,12 +16,12 @@ public class Board {
     }
 
     public void setTile(Coordinate coordinate, Tile tile){
-        currentBoard.put(coordinate, tile);
+        this.currentBoard.put(coordinate, tile);
 
     }
 
     public Tile getTilePosition(Coordinate coordinate){
-        return currentBoard.get(coordinate);
+        return this.currentBoard.get(coordinate);
     }
 
     public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate){
@@ -29,4 +30,6 @@ public class Board {
         this.currentBoard.put(newCoordinate, oldTile);
 
     }
+    
+    public Stack<>
 }
