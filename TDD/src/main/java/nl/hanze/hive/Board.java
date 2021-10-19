@@ -4,32 +4,34 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class Board {
-    private HashMap<Coordinate, Tile> currentBoard;
+    private HashMap<Coordinate, Tile> board;
 
     public Board(){
-        this.currentBoard = new HashMap<>();
+        this.board = new HashMap<>();
     } 
 
     public HashMap<Coordinate, Tile> getCurrentBoard() {
-        return this.currentBoard;
+        return this.board;
 
     }
 
-    public void setTile(Coordinate coordinate, Tile tile){
-        this.currentBoard.put(coordinate, tile);
-
+    public void setTile(Coordinate coordinate, Hive.Tile tile){
+       
+        this.board.put(coordinate, new Tile(tile));
+       
     }
 
     public Tile getTilePosition(Coordinate coordinate){
-        return this.currentBoard.get(coordinate);
-    }
-
-    public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate){
-        Tile oldTile = currentBoard.get(oldCoordinate);
-        this.currentBoard.remove(oldCoordinate);
-        this.currentBoard.put(newCoordinate, oldTile);
-
+        return this.board.get(coordinate);
+        
     }
     
-    public Stack<>
+    public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate){
+        Tile oldTile = board.get(oldCoordinate);
+        this.board.remove(oldCoordinate);
+        this.board.put(newCoordinate, oldTile);
+
+    }
+
+    // public Stack<>
 }

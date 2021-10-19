@@ -14,13 +14,13 @@ public class Game{
 
         // board { {0.0, bee} , {0.0, spoder} }
 
-        //act
-        board.setTile(beeCoordinate, beeTile);
-        board.setTile(spoderCoordinate, spoderTile);
+        // //act
+        // board.setTile(beeCoordinate, beeTile);
+        // board.setTile(spoderCoordinate, spoderTile);
         
 
-        for( Map.Entry<Coordinate, Tile> entry : board.getCurrentBoard().entrySet() ){
-            System.out.println( Arrays.toString(entry.getKey().getQR()) + " => " + entry.getValue().getType() );
-        }
+        // for( Map.Entry<Coordinate, Tile> entry : board.getCurrentBoard().entrySet() ){
+        //     System.out.println( Arrays.toString(entry.getKey().getQR()) + " => " + entry.getValue().getType() );
+        // }
     }
 }

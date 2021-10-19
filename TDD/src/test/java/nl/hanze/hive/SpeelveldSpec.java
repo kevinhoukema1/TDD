@@ -10,6 +10,8 @@ import javax.naming.TimeLimitExceededException;
 
 import org.junit.jupiter.api.Test;
 
+import nl.hanze.hive.Hive.IllegalMove;
+
 public class SpeelveldSpec {
 
     //2A
@@ -68,68 +70,67 @@ public class SpeelveldSpec {
 
     //2D
     @Test
-    void testIfTileIsInField(){
+    void testIfTileIsInField() throws IllegalMove{
         //arrange
-        Board board = new Board();
+        HiveGame game = new HiveGame();
         Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
-        Coordinate beeCoordinate = new Coordinate(0, 0);
 
         //act
         // set the tile and coordinate in a hashmap<key,value> in the board
-        board.setTile(beeCoordinate, tile);
+        game.play(tile.getType(), 0, 0); // (QUEEN_BEE, 0, 0) 
 
-        // prepare an expected hashmap to check in the assert
+        // // prepare an expected hashmap to check in the assert
         HashMap<Coordinate, Tile> expectedHash= new HashMap<Coordinate, Tile>()
         {{
             // put in the tile and coordinate
-            put(beeCoordinate, tile);
+            put(new Coordinate(0, 0), tile);
         }};
 
         //assert
-        // the .get(tile) returns the coordinate
-        assertEquals(expectedHash.get(beeCoordinate), board.getTilePosition(beeCoordinate));
+
+        assertEquals(expectedHash.get(new Coordinate(0, 0)).getType(), game.getBoard().getTilePosition(new Coordinate(0, 0)).getType());
 
     }
 
     //2E
-    @Test
-    void testIfTileCanBeMoved(){
-        //arrange
-        Board board = new Board();
-        Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
-        Coordinate beeCoordinate = new Coordinate(0, 0); 
+    // @Test
+    // void testIfTileCanBeMoved(){
+    //     //arrange
+    //     Board board = new Board();
+    //     Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
+    //     Coordinate beeCoordinate = new Coordinate(0, 0); 
 
-        //act
-        board.setTile(beeCoordinate, tile); 
-        Coordinate newCoordinate = new Coordinate(0,1);
-        board.moveTile(beeCoordinate, newCoordinate);
+    //     //act
+    //     board.setTile(beeCoordinate, tile); 
+    //     Coordinate newCoordinate = new Coordinate(0,1);
+    //     board.moveTile(beeCoordinate, newCoordinate);
 
-        //assert
-        assertEquals(tile, board.getTilePosition(newCoordinate));
-    } 
+    //     //assert
+    //     assertEquals(tile, board.getTilePosition(newCoordinate));
+    // } 
 
 
     //2F
-    @Test
-    void testIfTilesCanStack(){
-        //arrange
-        Board board = new Board();
-        Tile beeTile = new Tile(Hive.Tile.QUEEN_BEE);
-        Coordinate beeCoordinate = new Coordinate(0, 0);  
+    // @Test
+    // void testIfTilesCanStack(){
+    //     //arrange
+    //     Board board = new Board();
+    //     Tile beeTile = new Tile(Hive.Tile.QUEEN_BEE);
+    //     Coordinate beeCoordinate = new Coordinate(0, 0);  
 
-        Tile spoderTile = new Tile(Hive.Tile.SPIDER);
-        Coordinate spoderCoordinate = new Coordinate(0, 0);  
+    //     Tile spoderTile = new Tile(Hive.Tile.SPIDER);
+    //     Coordinate spoderCoordinate = new Coordinate(0, 0);  
 
-        // board { {0.0, bee} , {0.0, spoder} }
+    //     // board { {0.0, bee} , {0.0, spoder} }
 
-        //act
-        board.setTile(beeCoordinate, beeTile);
-        board.setTile(spoderCoordinate, spoderTile);
-        System.out.println(board.getCurrentBoard());
+    //     //act
+    //     board.setTile(beeCoordinate, beeTile);
+    //     board.setTile(spoderCoordinate, spoderTile);
+    //     System.out.println(board.getCurrentBoard());
 
 
-        //assert
-        // assertEquals(expected, actual);
-        assertEquals(2, board.getCurrentBoard().get(new Coordinate(0,0)).size());
-    }
+    //     //assert
+    //     // assertEquals(expected, actual);
+    //     assertEquals(2, board.getCurrentBoard().get(new Coordinate(0,0)).size());
+    // }
 }
