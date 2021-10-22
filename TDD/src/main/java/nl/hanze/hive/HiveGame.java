@@ -2,10 +2,12 @@ package nl.hanze.hive;
 
 public class HiveGame implements Hive {
 
-    Board currentBoard;
+    private Board currentBoard;
+    private Hive.Player currentPlayer;
 
     public HiveGame(){
         this.currentBoard = new Board();
+        this.currentPlayer = Hive.Player.WHITE;
 
     }
 
@@ -15,25 +17,29 @@ public class HiveGame implements Hive {
 
     @Override
     public void play(Tile tile, int q, int r) throws IllegalMove {
-        this.currentBoard.setTile(new Coordinate(q,r), tile);
+        getBoard().setTile(new Coordinate(q,r), tile);
 
+        swapTurn();
     }
 
     @Override
     public void move(int fromQ, int fromR, int toQ, int toR) throws IllegalMove {
-       
+        Coordinate from = new Coordinate(fromQ, fromR);
+        Coordinate to = new Coordinate(toQ, toR);
         
+        getBoard().moveTile(from, to);
+        swapTurn();
     }
 
     @Override
     public void pass() throws IllegalMove {
-        // TODO Auto-generated method stub
+        swapTurn();
         
     }
 
     @Override
     public boolean isWinner(Player player) {
-        // TODO Auto-generated method stub
+        
         return false;
     }
 
@@ -43,7 +49,13 @@ public class HiveGame implements Hive {
         return false;
     }
    
+    public void swapTurn(){
+        this.currentPlayer = (this.currentPlayer.equals(Hive.Player.WHITE) ? Hive.Player.BLACK : Hive.Player.WHITE);
+    }
 
+    public Hive.Player getCurrentTurn(){
+        return this.currentPlayer;
+    }
     
 
     

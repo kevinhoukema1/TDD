@@ -2,6 +2,8 @@ package nl.hanze.hive;
 
 import java.util.HashMap;
 
+import nl.hanze.hive.Hive.IllegalMove;
+
 public class Player {
     Hive.Player colour;
     HashMap<Hive.Tile, Integer> tiles;
@@ -28,4 +30,33 @@ public class Player {
     public HashMap<Hive.Tile, Integer> getTiles(){
         return this.tiles;
     }
+
+
+    public void playTile(HiveGame game, Hive.Tile tile, int q, int r) throws IllegalMove{
+        if(game.getCurrentTurn() == this.colour){
+            if(tiles.get(tile) > 0){
+                tiles.put(tile, tiles.get(tile) - 1); 
+                game.play(tile, q, r);
+                // if(game.isWinner(player)
+            }
+        }
+        else{
+            throw new IllegalMove("HET IS JOUW BEURT NIET HENK!");
+        }
+        
+    }
+
+    public void moveTile(HiveGame game, int fromQ, int fromR, int toQ, int toR) throws IllegalMove{
+        if(game.getCurrentTurn() == this.colour){
+            game.move(fromQ, fromR, toQ, toR);
+        }
+        else{
+            throw new IllegalMove("HET IS JOUW BEURT NIET HENK!");
+        }
+    }
+
+    public void pass(HiveGame game) throws IllegalMove{
+        game.pass();
+    }
+            
 }

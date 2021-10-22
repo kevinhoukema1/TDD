@@ -62,7 +62,7 @@ public class SpeelveldSpec {
         Board board = new Board();
         
         //act
-        HashMap<Coordinate, Tile> startBoard = board.getCurrentBoard();
+        HashMap<Coordinate, TileStack> startBoard = board.getCurrentBoard();
 
         //assert
         assertEquals(0, startBoard.size());
@@ -79,58 +79,62 @@ public class SpeelveldSpec {
         // set the tile and coordinate in a hashmap<key,value> in the board
         game.play(tile.getType(), 0, 0); // (QUEEN_BEE, 0, 0) 
 
-        // // prepare an expected hashmap to check in the assert
-        HashMap<Coordinate, Tile> expectedHash= new HashMap<Coordinate, Tile>()
-        {{
-            // put in the tile and coordinate
-            put(new Coordinate(0, 0), tile);
-        }};
-
         //assert
-
-        assertEquals(expectedHash.get(new Coordinate(0, 0)).getType(), game.getBoard().getTilePosition(new Coordinate(0, 0)).getType());
+        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getTilePosition(new Coordinate(0, 0)).getType());
 
     }
 
     //2E
-    // @Test
-    // void testIfTileCanBeMoved(){
-    //     //arrange
-    //     Board board = new Board();
-    //     Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
-    //     Coordinate beeCoordinate = new Coordinate(0, 0); 
+    @Test
+    void testIfTileCanBeMoved() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
 
-    //     //act
-    //     board.setTile(beeCoordinate, tile); 
-    //     Coordinate newCoordinate = new Coordinate(0,1);
-    //     board.moveTile(beeCoordinate, newCoordinate);
+        //act
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0); 
+       
+        game.move(0, 0, -1, 1);
 
-    //     //assert
-    //     assertEquals(tile, board.getTilePosition(newCoordinate));
-    // } 
+        //assert
+        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getTilePosition(new Coordinate(-1, 1)).getType());
+    } 
 
 
     //2F
-    // @Test
-    // void testIfTilesCanStack(){
-    //     //arrange
-    //     Board board = new Board();
-    //     Tile beeTile = new Tile(Hive.Tile.QUEEN_BEE);
-    //     Coordinate beeCoordinate = new Coordinate(0, 0);  
+    @Test
+    void testIfTilesCanStack() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();  
 
-    //     Tile spoderTile = new Tile(Hive.Tile.SPIDER);
-    //     Coordinate spoderCoordinate = new Coordinate(0, 0);  
+        //act
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.SPIDER, 0, 0);
 
-    //     // board { {0.0, bee} , {0.0, spoder} }
+        //assert
+        assertEquals(2, game.getBoard().getCoordinateStack(new Coordinate(0,0)).size());
+    }
 
-    //     //act
-    //     board.setTile(beeCoordinate, beeTile);
-    //     board.setTile(spoderCoordinate, spoderTile);
-    //     System.out.println(board.getCurrentBoard());
+    // Note: De opdracht zegt dat alleen de bovenste verplaatst mag worden. Die gebeurt automatisch omdat we gebruik maken van java.Stack
+    // Zie: https://www.educative.io/edpresso/how-to-use-the-stack-class-in-java
+    @Test
+    void testIfTopFromStackIsMoved() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
 
+        //act
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.SPIDER, 0, 0);
+        // de TileStack is nu {QUEEN_BEE, SPIDER}. Dus als move aangeroepen wordt, gaat de Spoder verplaatst worden.
+        
+        game.move(0, 0, -1, 0);
+        // Spoder is verplaatst. Dus op coordinate(-1,0) staat de spoder nu
 
-    //     //assert
-    //     // assertEquals(expected, actual);
-    //     assertEquals(2, board.getCurrentBoard().get(new Coordinate(0,0)).size());
-    // }
+        //assert
+        assertEquals(Hive.Tile.SPIDER, game.getBoard().getTilePosition(new Coordinate(-1, 0)).getType());
+
+        // Deze assert faild expres om te laten zien dat op de oude coordinaten nog steeds de queen bee zit.
+        // Comment de eerste assert en uncomment deze om dat te zien.
+
+        // assertEquals(Hive.Tile.SPIDER, game.getBoard().getTilePosition(new Coordinate(0, 0)).getType());
+    }
 }
