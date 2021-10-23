@@ -6,8 +6,9 @@ public class TileStack {
 
     private Stack<Tile> stack;
 
-    public TileStack(Hive.Tile tile){
+    public TileStack(Tile tile){
         this.stack = new Stack<>();
+        
         putInStack(tile);
 
     }   
@@ -17,8 +18,8 @@ public class TileStack {
 
     }
 
-    public void putInStack(Hive.Tile tile){
-        this.stack.push(new Tile(tile));
+    public void putInStack(Tile tile){
+        this.stack.push(tile);
 
     }
 

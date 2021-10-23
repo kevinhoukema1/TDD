@@ -70,31 +70,64 @@ public class SpelverloopSpec {
         assertEquals(p2.getColour(), game.getCurrentTurn());
     }
     
-    // @Test // 3C
-    // void testIfPlayerHasWon() throws IllegalMove{
-    //     //arrange
-    //     HiveGame game = new HiveGame();
-    //     Player p1 = new Player(Hive.Player.WHITE);
-    //     Player p2 = new Player(Hive.Player.BLACK);
+    @Test // 3C
+    void testIfPlayerHasWon() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
+        Player p1 = new Player(Hive.Player.WHITE);
+        Player p2 = new Player(Hive.Player.BLACK);
 
-    //     //act
-    //     p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-    //     p2.playTile(game, Hive.Tile.BEETLE, -1, 0);
+        //act
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.BEETLE, -1, 0);
 
-    //     p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
+        p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
         
-    //     p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
+        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
 
-    //     p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
 
-    //     p2.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
+        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
 
-    //     p1.playTile(game, Hive.Tile.GRASSHOPPER, -1, 1);
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, -1, 1);
 
-    //     //assert
-    //     assertTrue(game.isWinner(p2.getColour()));
+        //assert
+        assertTrue(game.isWinner(p2.getColour()));
         
-    // }
+    }
+
+    @Test
+    void testIfGameEndsInDraw() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
+        Player p1 = new Player(Hive.Player.WHITE);
+        Player p2 = new Player(Hive.Player.BLACK); 
+
+        //act
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -2, 0);
+
+        p1.playTile(game, Hive.Tile.BEETLE, -1, -1); 
+        p2.playTile(game, Hive.Tile.BEETLE, 0, -1);
+        
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -2, -1);
+        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
+
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -3, 0);
+        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
+
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -3, 1);
+        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
+
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, -2, 1);
+        p2.playTile(game, Hive.Tile.GRASSHOPPER, -1, 1);
+
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, -1, 0);
+
+        //assert
+        assertTrue(game.isDraw());
+        
+    }
 
 
 }

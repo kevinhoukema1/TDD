@@ -73,7 +73,7 @@ public class SpeelveldSpec {
     void testIfTileIsInField() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
+        Tile tile = new Tile(Hive.Tile.QUEEN_BEE, Hive.Player.WHITE);
 
         //act
         // set the tile and coordinate in a hashmap<key,value> in the board

@@ -4,8 +4,9 @@ public class Tile {
     private Hive.Tile type;
     private Hive.Player player;
 
-    public Tile(Hive.Tile type){
+    public Tile(Hive.Tile type, Hive.Player player){
         this.type = type;
+        this.player = player;
     }
 
     public Hive.Tile getType(){

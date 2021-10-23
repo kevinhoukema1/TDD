@@ -37,7 +37,16 @@ public class Player {
             if(tiles.get(tile) > 0){
                 tiles.put(tile, tiles.get(tile) - 1); 
                 game.play(tile, q, r);
-                // if(game.isWinner(player)
+                if(game.isWinner(getColour())){
+                    System.out.println(getColour() + "! You win :D");
+                }
+                Hive.Player opponent = (getColour() == Hive.Player.WHITE) ? Hive.Player.BLACK : Hive.Player.WHITE;
+                if(game.isWinner(opponent)){
+                    System.out.println(getColour() + "! You win :D");
+                }
+            }
+            else{
+                throw new IllegalMove("JE HEBT GEEN " + tile + " TILES MEER HENK! " ); 
             }
         }
         else{

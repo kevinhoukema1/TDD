@@ -41,7 +41,7 @@ public class SpelmateriaalSpec {
     void testIfTileIsBeeQeueen(){
         
         //Arragne
-        Tile tile = new Tile(Hive.Tile.QUEEN_BEE);
+        Tile tile = new Tile(Hive.Tile.QUEEN_BEE, Hive.Player.WHITE);
 
         //Assert
         assertEquals(Hive.Tile.QUEEN_BEE, tile.getType());
@@ -51,7 +51,7 @@ public class SpelmateriaalSpec {
     void testIfTileIsSpoder(){
         
         //Arragne
-        Tile tile = new Tile(Hive.Tile.SPIDER);
+        Tile tile = new Tile(Hive.Tile.SPIDER, Hive.Player.WHITE);
 
         //Assert
         assertEquals(Hive.Tile.SPIDER, tile.getType());
@@ -61,7 +61,7 @@ public class SpelmateriaalSpec {
     void testIfTileIsBeetle(){
         
         //Arragne
-        Tile tile = new Tile(Hive.Tile.BEETLE);
+        Tile tile = new Tile(Hive.Tile.BEETLE, Hive.Player.WHITE);
 
         //Assert
         assertEquals(Hive.Tile.BEETLE, tile.getType());
@@ -71,7 +71,7 @@ public class SpelmateriaalSpec {
     void testIfTileIsSS(){
         
         //Arragne
-        Tile tile = new Tile(Hive.Tile.SOLDIER_ANT);
+        Tile tile = new Tile(Hive.Tile.SOLDIER_ANT, Hive.Player.WHITE);
 
         //Assert
         assertEquals(Hive.Tile.SOLDIER_ANT, tile.getType());
@@ -81,7 +81,7 @@ public class SpelmateriaalSpec {
     void testIfTileIsGrassHoper(){
         
         //Arragne
-        Tile tile = new Tile(Hive.Tile.GRASSHOPPER);
+        Tile tile = new Tile(Hive.Tile.GRASSHOPPER, Hive.Player.WHITE);
 
         //Assert
         assertEquals(Hive.Tile.GRASSHOPPER, tile.getType());
