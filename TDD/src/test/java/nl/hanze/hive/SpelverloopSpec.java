@@ -47,16 +47,16 @@ public class SpelverloopSpec {
         Player p2 = new Player(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.BEETLE, 0, 0);
-        p2.playTile(game, Hive.Tile.SPIDER, -1, 0);
-
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 1, -1);
-        p2.playTile(game, Hive.Tile.GRASSHOPPER, -1, -1);
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+       
+        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
+        p2.pass(game);
 
         p1.moveTile(game, 1 , -1, 1, 0);
         
         //assert
-        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getCoordinateStack(new Coordinate(1,0)).peek().getType());
+        assertEquals(Hive.Tile.BEETLE, game.getBoard().getCoordinateStack(new Coordinate(1,0)).peek().getType());
     }
 
     @Test // 3B

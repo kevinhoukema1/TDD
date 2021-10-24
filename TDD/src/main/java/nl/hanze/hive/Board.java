@@ -30,25 +30,25 @@ public class Board {
     }
 
     
-    public void checkForQueenAfterFourTurns(Hive.Player currentPlayer) throws IllegalMove{
+    public Boolean checkForQueen(Hive.Player currentPlayer) throws IllegalMove{
         // Checks if queen is played in turn 4.
-        Boolean found = false;
+        
         for (Map.Entry<Coordinate, TileStack> tile : this.board.entrySet()){
             if(tile.getValue().peek().getType() == Hive.Tile.QUEEN_BEE && tile.getValue().peek().getPlayer() == currentPlayer){
                 // If queen is found, function breaks and returns to  settile
-                found = true;
+                return true;
             }
         }
         // If no queen is found, it needs to be played.
-        if(!found){
-            throw new IllegalMove("SPEEL JE QUEEN HENK! " + currentPlayer);
-        }
+        return false;
         
     }
 
     public void setTile(Coordinate coordinate, Hive.Tile hiveTile, Hive.Player currentPlayer) throws IllegalMove{
         if(getTurn() == 7 || getTurn() == 8){
-            checkForQueenAfterFourTurns(currentPlayer);
+            if(!checkForQueen(currentPlayer)){
+                throw new IllegalMove("SPEEL JE QUEEN HENK! " + currentPlayer);
+            }
         }
         if(legalMove(coordinate, currentPlayer)){
             if(this.board.get(coordinate) != null ){
@@ -95,9 +95,14 @@ public class Board {
     }
     
     public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
-        Tile tile = this.board.get(oldCoordinate).pullFromStack();
-        setTile(newCoordinate, tile.getType(), player);
-
+      
+        if(checkForQueen(player)){
+            Tile moveTile = this.board.get(oldCoordinate).pullFromStack();
+            setTile(newCoordinate, moveTile.getType(), player);
+        }
+        else{
+            throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
+        }
     } 
 
     public Stack<Tile> getCoordinateStack(Coordinate coordinate){

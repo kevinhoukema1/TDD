@@ -42,7 +42,7 @@ public class SteenverschuivenSpec {
         Player p2 = new Player(Hive.Player.BLACK); 
 
         //act
-        p1.playTile(game, Hive.Tile.SPIDER, 0, 0);
+        p1.playTile(game, Hive.Tile.BEETLE, 0, 0);
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
        
         p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
@@ -52,4 +52,5 @@ public class SteenverschuivenSpec {
         assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 1, 0); });
     }
 
+    // @Test //5C
 }

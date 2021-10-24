@@ -92,11 +92,15 @@ public class SpeelveldSpec {
 
         //act
         game.play(Hive.Tile.QUEEN_BEE, 0, 0); 
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
+
+        game.play(Hive.Tile.BEETLE, 1, 0);
+        game.pass();
        
-        game.move(0, 0, -1, 1);
+        game.move(1, 0, 1, -1);
 
         //assert
-        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getTilePosition(new Coordinate(-1, 1)).getType());
+        assertEquals(Hive.Tile.BEETLE, game.getBoard().getTilePosition(new Coordinate(1, -1)).getType());
     } 
 
 
