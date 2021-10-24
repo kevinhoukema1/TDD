@@ -18,6 +18,11 @@ public class TileStack {
 
     }
 
+    public Tile peek(){
+        return !this.stack.isEmpty() ? this.stack.peek() : null;
+
+    }
+
     public void putInStack(Tile tile){
         this.stack.push(tile);
 

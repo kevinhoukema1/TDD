@@ -50,10 +50,13 @@ public class SpelverloopSpec {
         p1.playTile(game, Hive.Tile.BEETLE, 0, 0);
         p2.playTile(game, Hive.Tile.SPIDER, -1, 0);
 
-        p1.moveTile(game, 0, 0, -1, 0);
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 1, -1);
+        p2.playTile(game, Hive.Tile.GRASSHOPPER, -1, -1);
+
+        p1.moveTile(game, 1 , -1, 1, 0);
         
         //assert
-        assertEquals(Hive.Tile.BEETLE, game.getBoard().getCoordinateStack(new Coordinate(-1,0)).peek().getType());
+        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getCoordinateStack(new Coordinate(1,0)).peek().getType());
     }
 
     @Test // 3B
@@ -79,16 +82,17 @@ public class SpelverloopSpec {
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.BEETLE, -1, 0);
-
+        p2.pass(game);
+        p1.playTile(game, Hive.Tile.BEETLE, -1, 0);
+        p2.pass(game);
         p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
-        
-        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
-
+        p2.pass(game); 
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
+        p2.pass(game);
         p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
-
-        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
-
+        p2.pass(game);
+        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
+        p2.pass(game);
         p1.playTile(game, Hive.Tile.GRASSHOPPER, -1, 1);
 
         //assert
@@ -105,24 +109,20 @@ public class SpelverloopSpec {
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -2, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.BEETLE, -1, -1); 
-        p2.playTile(game, Hive.Tile.BEETLE, 0, -1);
-        
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -2, -1);
-        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
+        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
 
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -3, 0);
-        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
+        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
+        p2.playTile(game, Hive.Tile.BEETLE, -1, -1);
 
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, -3, 1);
-        p2.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, 0, 1);
+        p2.playTile(game, Hive.Tile.GRASSHOPPER, -2, 1);
 
-        p1.playTile(game, Hive.Tile.GRASSHOPPER, -2, 1);
-        p2.playTile(game, Hive.Tile.GRASSHOPPER, -1, 1);
+        p1.moveTile(game, +1, -1, 0, -1);
+        p2.moveTile(game, -2, 1, -1, 1);
 
-        p1.playTile(game, Hive.Tile.GRASSHOPPER, -1, 0);
 
         //assert
         assertTrue(game.isDraw());

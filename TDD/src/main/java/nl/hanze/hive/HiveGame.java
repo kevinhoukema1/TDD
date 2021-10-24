@@ -9,10 +9,10 @@ public class HiveGame implements Hive {
     private Hive.Player currentPlayer;
     private Hive.Player winner;
 
+
     public HiveGame(){
         this.currentBoard = new Board();
         this.currentPlayer = Hive.Player.WHITE;
-
     }
 
     public Board getBoard(){
@@ -21,8 +21,9 @@ public class HiveGame implements Hive {
 
     @Override
     public void play(Tile tile, int q, int r) throws IllegalMove {
+        
         getBoard().setTile(new Coordinate(q,r), tile, this.currentPlayer);
-
+        
         swapTurn();
     }
 
@@ -37,6 +38,7 @@ public class HiveGame implements Hive {
 
     @Override
     public void pass() throws IllegalMove {
+        getBoard().increaseTurn();
         swapTurn();
         
     }
@@ -87,6 +89,7 @@ public class HiveGame implements Hive {
     }
    
     public void swapTurn(){
+        
         this.currentPlayer = (this.currentPlayer.equals(Hive.Player.WHITE) ? Hive.Player.BLACK : Hive.Player.WHITE);
     }
 

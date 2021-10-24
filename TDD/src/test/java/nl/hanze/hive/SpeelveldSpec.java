@@ -120,17 +120,24 @@ public class SpeelveldSpec {
     void testIfTopFromStackIsMoved() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
+        Player p1 = new Player(Hive.Player.WHITE);
+        Player p2 = new Player(Hive.Player.BLACK);
 
         //act
-        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
-        game.play(Hive.Tile.SPIDER, 0, 0);
-        // de TileStack is nu {QUEEN_BEE, SPIDER}. Dus als move aangeroepen wordt, gaat de Spoder verplaatst worden.
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+
+        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
+        p2.pass(game);
+
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, 1, 0);
+        p2.pass(game);
+
+        p1.moveTile(game, 1, 0, 1, -1);
         
-        game.move(0, 0, -1, 0);
-        // Spoder is verplaatst. Dus op coordinate(-1,0) staat de spoder nu
 
         //assert
-        assertEquals(Hive.Tile.SPIDER, game.getBoard().getTilePosition(new Coordinate(-1, 0)).getType());
+        assertEquals(Hive.Tile.GRASSHOPPER, game.getBoard().getTilePosition(new Coordinate(1, -1)).getType());
 
         // Deze assert faild expres om te laten zien dat op de oude coordinaten nog steeds de queen bee zit.
         // Comment de eerste assert en uncomment deze om dat te zien.
