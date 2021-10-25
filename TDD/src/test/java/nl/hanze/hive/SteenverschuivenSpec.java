@@ -52,5 +52,39 @@ public class SteenverschuivenSpec {
         assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 1, 0); });
     }
 
-    // @Test //5C
+    @Test //5C
+    void testifTileHasNeighbourAfterMove() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
+        Player p1 = new Player(Hive.Player.WHITE);
+        Player p2 = new Player(Hive.Player.BLACK);  
+
+        //act
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        
+        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
+        p2.pass(game);
+
+        //assert
+        assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 2, -1); });
+    }
+
+    @Test //5D
+    void testIfMovingATileCreatesTwoGroups() throws IllegalMove{
+        HiveGame game = new HiveGame();
+        Player p1 = new Player(Hive.Player.WHITE);
+        Player p2 = new Player(Hive.Player.BLACK);  
+
+        //act
+        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        
+        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+
+       //assert
+       assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 0, 0, 1, -1); }); 
+    }
+
 }

@@ -96,14 +96,86 @@ public class Board {
     
     public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
       
-        if(checkForQueen(player)){
+        if(!checkForQueen(player)){
+            
+            throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
+        }
+        else if(!legalMove(newCoordinate, player)){
+            throw new IllegalMove("DIT IS GEEN LEGALE MOVE HENK!!");
+
+        }
+        else if(chainBreak(oldCoordinate, newCoordinate, player)){
+            throw new IllegalMove("JE SLOOPT JE KETTING HENK!");
+        }
+        else{
             Tile moveTile = this.board.get(oldCoordinate).pullFromStack();
             setTile(newCoordinate, moveTile.getType(), player);
         }
-        else{
-            throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
-        }
     } 
+
+    public Boolean chainBreak(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
+        // Make copy of the board and do the movement
+        HashMap<Coordinate, TileStack> currentboard = getCurrentBoard();
+
+        // Pull tile from the stack
+        Tile tile = currentboard.get(oldCoordinate).pullFromStack();
+       
+        // Do the move
+        if(currentboard.get(newCoordinate) != null ){
+            currentboard.get(newCoordinate).putInStack(tile);
+        }
+        else{
+            currentboard.put(newCoordinate, new TileStack(tile));
+        }
+
+        // make visited list to check with the board size later on
+        ArrayList<Coordinate> visited = new ArrayList<>();
+
+        // if the neighbour does not contain a tile, the neighbour is empty and should be skipped
+        if(currentboard.get(newCoordinate) != null && !currentboard.get(newCoordinate).getStack().isEmpty()){
+            // visited calls the recersive function seek to get a list of all neighbour connections to see 
+            // how many directly connected neighbours are with this coordinate
+            visited = seek(currentboard, newCoordinate, visited);
+        }
+
+        
+        // if the size of visited is smaller than the current board.size it means there are two or more islands
+        if(visited.size() < currentboard.size() -1){
+            // throw to get the sizes, change back to return true to let the move function handle the error.
+            throw new IllegalMove("Visited: " + visited.size() + " Current: " + currentboard.size());
+            // return true;
+        }
+        
+        // the visited is the same size as current so there is only one island.
+        return false;
+
+    }
+
+    public ArrayList<Coordinate> seek(HashMap<Coordinate, TileStack> currentboard, Coordinate coordinate, ArrayList<Coordinate> visited ){
+        // copy the arraylist of the given visited
+        ArrayList<Coordinate> newVisited = visited;
+
+        // add the coordinate to the list. This list should contain all coordinates that are not empty and are connected
+        newVisited.add(coordinate);
+
+        // loop throug all the neighbours of this coordinate
+        for(Coordinate neighbour : coordinate.getNeighbours()){
+            
+            // if the coordinate is not empty it is a neighbour
+            if(currentboard.get(neighbour) != null && !currentboard.get(neighbour).getStack().isEmpty()){
+                // check if the coordinate is already visited
+                if(newVisited.contains(coordinate)){
+                    continue;
+                }
+
+                // the arraylist newVisited will recusrively call seek() again with the neighbour and the list
+                // of the visited nodes. 
+                newVisited = seek(currentboard, neighbour, newVisited);
+            }
+        }
+        // if all loops have been done, return the visitedList
+        return newVisited; 
+    }
 
     public Stack<Tile> getCoordinateStack(Coordinate coordinate){
         return this.board.get(coordinate).getStack();
