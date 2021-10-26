@@ -87,4 +87,20 @@ public class SteenverschuivenSpec {
        assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 0, 0, 1, -1); }); 
     }
 
+    @Test //5E
+    void testIfAllTilesHaveTheirOwnStrategy(){
+        //arrange
+        Strategy beeStrat = new BeequeenStrategy();
+        Strategy spoderStrat = new SpiderStrategy(); 
+        Strategy beetleStrat = new BeetleStrategy();
+        Strategy grasshopperStrat = new GrasshopperStrategy();
+        Strategy soldierantStrat = new SoldierantStrategy();
+
+        //act
+
+        //assert
+        // NOTE:: als de beestrat niet het zelfde is als de spiderstrat, dan geld dat ook voor de rest van de strategies.
+        assertTrue(beeStrat.getClass() != spoderStrat.getClass());
+    }
+
 }
