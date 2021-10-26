@@ -3,6 +3,7 @@ package nl.hanze.hive;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import nl.hanze.hive.Hive.IllegalMove;
@@ -51,12 +52,11 @@ public class Board {
             }
         }
         if(legalMove(coordinate, currentPlayer)){
+            Tile tile = new Tile(hiveTile, currentPlayer);
             if(this.board.get(coordinate) != null ){
-                Tile tile = new Tile(hiveTile, currentPlayer);
                 this.board.get(coordinate).putInStack(tile);
             }
             else{
-                Tile tile = new Tile(hiveTile, currentPlayer);
                 this.board.put(coordinate, new TileStack(tile));
     
             } 
@@ -105,45 +105,56 @@ public class Board {
 
         }
         else if(chainBreak(oldCoordinate, newCoordinate, player)){
+            
             throw new IllegalMove("JE SLOOPT JE KETTING HENK!");
         }
         else{
-            Tile moveTile = this.board.get(oldCoordinate).pullFromStack();
+            // Remove tile from stack
+            Tile moveTile = this.board.get(oldCoordinate).getStack().pop();
+            // check if stack is empty, if so, remove the coordinate
+            this.board.entrySet().removeIf(ent -> ent.getValue().getStack().isEmpty());
+            // set old tile on new coordinate
             setTile(newCoordinate, moveTile.getType(), player);
         }
     } 
 
     public Boolean chainBreak(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
-        // Make copy of the board and do the movement
-        HashMap<Coordinate, TileStack> currentboard = getCurrentBoard();
 
         // Pull tile from the stack
-        Tile tile = currentboard.get(oldCoordinate).pullFromStack();
+        Tile tile = getCurrentBoard().get(oldCoordinate).getStack().pop();
        
         // Do the move
-        if(currentboard.get(newCoordinate) != null ){
-            currentboard.get(newCoordinate).putInStack(tile);
+        if(this.board.get(newCoordinate) != null ){
+            this.board.get(newCoordinate).putInStack(tile);
         }
         else{
-            currentboard.put(newCoordinate, new TileStack(tile));
-        }
+            this.board.put(newCoordinate, new TileStack(tile));
+
+        } 
 
         // make visited list to check with the board size later on
         ArrayList<Coordinate> visited = new ArrayList<>();
-
-        // if the neighbour does not contain a tile, the neighbour is empty and should be skipped
-        if(currentboard.get(newCoordinate) != null && !currentboard.get(newCoordinate).getStack().isEmpty()){
-            // visited calls the recersive function seek to get a list of all neighbour connections to see 
-            // how many directly connected neighbours are with this coordinate
-            visited = seek(currentboard, newCoordinate, visited);
-        }
-
         
+        // visited calls the recersive function seek to get a list of all neighbour connections to see 
+        // how many directly connected neighbours are with this coordinate
+        visited = seek(newCoordinate, visited);
+        
+        // Pull tile from the stack
+        Tile oldTile = getCurrentBoard().get(newCoordinate).getStack().pop();
+       
+        // Do the move
+        if(this.board.get(oldCoordinate) != null ){
+            this.board.get(oldCoordinate).putInStack(oldTile);
+        }
+        else{
+            this.board.put(oldCoordinate, new TileStack(oldTile));
+
+        } 
+        this.board.entrySet().removeIf(ent -> ent.getValue().getStack().isEmpty()); 
         // if the size of visited is smaller than the current board.size it means there are two or more islands
-        if(visited.size() < currentboard.size() -1){
+        if(visited.size() < getCurrentBoard().size() -1){
             // throw to get the sizes, change back to return true to let the move function handle the error.
-            throw new IllegalMove("Visited: " + visited.size() + " Current: " + currentboard.size());
-            // return true;
+            return true;
         }
         
         // the visited is the same size as current so there is only one island.
@@ -151,26 +162,28 @@ public class Board {
 
     }
 
-    public ArrayList<Coordinate> seek(HashMap<Coordinate, TileStack> currentboard, Coordinate coordinate, ArrayList<Coordinate> visited ){
+    public ArrayList<Coordinate> seek(Coordinate coordinate, ArrayList<Coordinate> visited ) throws IllegalMove{
         // copy the arraylist of the given visited
         ArrayList<Coordinate> newVisited = visited;
 
         // add the coordinate to the list. This list should contain all coordinates that are not empty and are connected
-        newVisited.add(coordinate);
-
+        newVisited.add(coordinate); 
+        ArrayList<Coordinate> neighbours = coordinate.getNeighbours();
         // loop throug all the neighbours of this coordinate
-        for(Coordinate neighbour : coordinate.getNeighbours()){
+        for(Coordinate neighbour : neighbours){
             
             // if the coordinate is not empty it is a neighbour
-            if(currentboard.get(neighbour) != null && !currentboard.get(neighbour).getStack().isEmpty()){
+            if(getCurrentBoard().get(neighbour) != null && !getCurrentBoard().get(neighbour).getStack().isEmpty()){
                 // check if the coordinate is already visited
-                if(newVisited.contains(coordinate)){
+                if(newVisited.contains(neighbour)){
                     continue;
                 }
-
+                
                 // the arraylist newVisited will recusrively call seek() again with the neighbour and the list
                 // of the visited nodes. 
-                newVisited = seek(currentboard, neighbour, newVisited);
+                else{
+                    newVisited = seek(neighbour, newVisited);
+                }
             }
         }
         // if all loops have been done, return the visitedList
