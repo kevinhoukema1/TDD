@@ -2,8 +2,9 @@ package nl.hanze.hive;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
-public class GrasshopperStrategy implements Strategy{
+public class SchuifStrategie implements Strategy{
 
     @Override
     public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
@@ -26,17 +27,16 @@ public class GrasshopperStrategy implements Strategy{
         neighboursFrom.retainAll(neighboursTo);
 
         // Check if either one is empty
-        Boolean neighbourOne = board.getCoordinateStack(neighboursFrom.get(0)).isEmpty();
-        Boolean neighbourTwo = board.getCoordinateStack(neighboursFrom.get(1)).isEmpty();
-
         // If both are not empty, it means it is blocking. 
-        //If only one is empty but the other one isn't, there is no blockage
-        if(!neighbourOne && !neighbourTwo){
+        // If only one is empty but the other one isn't, there is no blockage
+        if(board.getCurrentBoard().get(neighboursFrom.get(0)) != null && board.getCurrentBoard().get(neighboursFrom.get(1)) != null){
             return true;
         }
         
         //No blockage detected
         return false;
     }
+
+    
     
 }

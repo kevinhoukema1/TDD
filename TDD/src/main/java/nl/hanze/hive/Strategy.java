@@ -1,18 +1,12 @@
 package nl.hanze.hive;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface Strategy {
 
-
-    /**
-     * Return a set of available moves for this tile.
-     * @param board Board to check
-     * @param from location to jump from
-     * @return List of possible moves
-     */
     ArrayList<Coordinate> moveSet(Board board, Coordinate from);
     
-    
+    Boolean checkBlockingNeighbours(Board board, Coordinate from, Coordinate to);
 
 }

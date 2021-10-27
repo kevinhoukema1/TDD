@@ -134,14 +134,14 @@ public class SpeelveldSpec {
         p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
         p2.pass(game);
 
-        p1.playTile(game, Hive.Tile.GRASSHOPPER, 1, 0);
+        p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
         p2.pass(game);
 
         p1.moveTile(game, 1, 0, 1, -1);
         
 
         //assert
-        assertEquals(Hive.Tile.GRASSHOPPER, game.getBoard().getTilePosition(new Coordinate(1, -1)).getType());
+        assertEquals(Hive.Tile.SPIDER, game.getBoard().getTilePosition(new Coordinate(1, -1)).getType());
 
         // Deze assert faild expres om te laten zien dat op de oude coordinaten nog steeds de queen bee zit.
         // Comment de eerste assert en uncomment deze om dat te zien.

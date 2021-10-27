@@ -11,10 +11,12 @@ import nl.hanze.hive.Hive.IllegalMove;
 public class Board {
     private HashMap<Coordinate, TileStack> board;
     private int beurt;
+    public StratFactory factory;
 
     public Board(){
         this.board = new HashMap<>();
         this.beurt = 1;
+        this.factory = new StratFactory();
     } 
 
     public HashMap<Coordinate, TileStack> getCurrentBoard() {
@@ -28,6 +30,10 @@ public class Board {
 
     public int getTurn(){
         return this.beurt;
+    }
+
+    public Strategy getStrat(Hive.Tile strat){
+        return this.factory.getStrat(strat);
     }
 
     
@@ -95,26 +101,33 @@ public class Board {
     }
     
     public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
-      
+        Strategy strat = getStrat(getCoordinateStack(oldCoordinate).peek().getType());
+        // check if the player has played a queen before being able to move.
         if(!checkForQueen(player)){
             
             throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
         }
+        // check if a move is legal
         else if(!legalMove(newCoordinate, player)){
             throw new IllegalMove("DIT IS GEEN LEGALE MOVE HENK!!");
 
         }
+        // check if the move doesn't break a chain
         else if(chainBreak(oldCoordinate, newCoordinate, player)){
             
             throw new IllegalMove("JE SLOOPT JE KETTING HENK!");
         }
-        else{
+        //check if the location has available moves
+        else if(!strat.checkBlockingNeighbours(this, oldCoordinate, newCoordinate)){
             // Remove tile from stack
             Tile moveTile = this.board.get(oldCoordinate).getStack().pop();
             // check if stack is empty, if so, remove the coordinate
             this.board.entrySet().removeIf(ent -> ent.getValue().getStack().isEmpty());
             // set old tile on new coordinate
             setTile(newCoordinate, moveTile.getType(), player);
+        }
+        else{
+            throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS HENK!");
         }
     } 
 

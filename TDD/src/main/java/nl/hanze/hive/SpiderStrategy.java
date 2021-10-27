@@ -1,8 +1,9 @@
 package nl.hanze.hive;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SpiderStrategy implements Strategy{
+public class SpiderStrategy extends SchuifStrategie{
 
     @Override
     public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
