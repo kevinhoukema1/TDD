@@ -118,16 +118,17 @@ public class Board {
             throw new IllegalMove("JE SLOOPT JE KETTING HENK!");
         }
         //check if the location has available moves
-        else if(!strat.checkBlockingNeighbours(this, oldCoordinate, newCoordinate)){
+        else if(strat.checkBlockingNeighbours(this, oldCoordinate, newCoordinate)){
+            // Also checks if both common neighbours have a tile in it.
+            throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS HENK!");
+        }
+        else{
             // Remove tile from stack
             Tile moveTile = this.board.get(oldCoordinate).getStack().pop();
             // check if stack is empty, if so, remove the coordinate
             this.board.entrySet().removeIf(ent -> ent.getValue().getStack().isEmpty());
             // set old tile on new coordinate
             setTile(newCoordinate, moveTile.getType(), player);
-        }
-        else{
-            throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS HENK!");
         }
     } 
 

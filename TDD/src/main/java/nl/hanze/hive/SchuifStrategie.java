@@ -32,7 +32,13 @@ public class SchuifStrategie implements Strategy{
         if(board.getCurrentBoard().get(neighboursFrom.get(0)) != null && board.getCurrentBoard().get(neighboursFrom.get(1)) != null){
             return true;
         }
-        
+
+        // check if at least one is filled
+        if(board.getCurrentBoard().get(neighboursFrom.get(0)) == null && board.getCurrentBoard().get(neighboursFrom.get(1)) == null){
+            // None of the common neighbours have a tile in it.
+            return true;
+        }
+
         //No blockage detected
         return false;
     }
