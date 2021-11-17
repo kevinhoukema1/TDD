@@ -9,7 +9,7 @@ public class SoldierantStrategy extends SchuifStrategie{
     public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
         ArrayList<Coordinate> availablePositions = searchPath(board, from, new ArrayList<>());
         
-        if(availablePositions.contains(to) ){
+        if(availablePositions.contains(to) && !from.equals(to)){
             return true;
         }
         return false;
