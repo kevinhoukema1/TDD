@@ -129,10 +129,21 @@ public class Board {
         else{
             // Remove tile from stack
             Tile moveTile = this.board.get(oldCoordinate).getStack().pop();
+            
             // check if stack is empty, if so, remove the coordinate
             this.board.entrySet().removeIf(ent -> ent.getValue().getStack().isEmpty());
+            
             // set old tile on new coordinate
-            setTile(newCoordinate, moveTile.getType(), player);
+            Tile tile = new Tile(moveTile.getType(), player);
+            if(this.board.get(newCoordinate) != null ){
+                this.board.get(newCoordinate).putInStack(tile);
+            }
+            else{
+                this.board.put(newCoordinate, new TileStack(tile));
+    
+            } 
+            increaseTurn();
+            // setTile(newCoordinate, moveTile.getType(), player);
         }
     } 
 
