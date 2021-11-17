@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="nl.hanze.hive.SpelmateriaalSpec" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-11-17T15:07:12" hostname="kevins-MacBook-Pro.local" time="0.018">
+<testsuite name="nl.hanze.hive.SpelmateriaalSpec" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-11-17T16:02:22" hostname="kevins-MacBook-Pro.local" time="0.018">
   <properties/>
-  <testcase name="testIfPlayerGetsCorrectAmmountOfSpoders()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
+  <testcase name="testIfPlayerGetsCorrectAmmountOfSpoders()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
   <testcase name="testIfPlayerBlackColourIsBlack()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
-  <testcase name="testIfTileIsSS()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
-  <testcase name="testIfPlayerGetsCorrectAmmountOfQueenBee()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
+  <testcase name="testIfTileIsSS()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
+  <testcase name="testIfPlayerGetsCorrectAmmountOfQueenBee()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
   <testcase name="testIfPlayerGetsCorrectAmmountOfGrasshopper()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
   <testcase name="testIfPlayerGetsCorrectAmmountOfSS()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
-  <testcase name="testIfTileIsBeeQeueen()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
-  <testcase name="testIfPlayerGetsCorrectAmmountOfBeetle()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
+  <testcase name="testIfTileIsBeeQeueen()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
+  <testcase name="testIfPlayerGetsCorrectAmmountOfBeetle()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
   <testcase name="testIfPlayerWhiteColourIsWhite()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
   <testcase name="testIfTileIsBeetle()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
-  <testcase name="testIfTileIsGrassHoper()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.002"/>
-  <testcase name="testIfTileIsSpoder()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.001"/>
+  <testcase name="testIfTileIsGrassHoper()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.0"/>
+  <testcase name="testIfTileIsSpoder()" classname="nl.hanze.hive.SpelmateriaalSpec" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
