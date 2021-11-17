@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import nl.hanze.hive.Hive.IllegalMove;
 
-public class KeverVerschuivenSpec {
+public class QueenVerschuivenSpec {
     @Test // 7A
     void testIfBeetleMovesAtLeastOneTile() throws IllegalMove{
         //Arrange
@@ -26,13 +26,10 @@ public class KeverVerschuivenSpec {
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
-        p2.pass(game);
-
-        p1.moveTile(game, 1, 0, 1, -1);
+        p1.moveTile(game, 0, 0, 0, -1);
         
         //assert
-        assertEquals(Hive.Tile.BEETLE, game.getBoard().getTilePosition(new Coordinate(1, -1)).getType());
+        assertEquals(Hive.Tile.QUEEN_BEE, game.getBoard().getTilePosition(new Coordinate(0, -1)).getType());
 
         
     }
@@ -48,9 +45,6 @@ public class KeverVerschuivenSpec {
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
-        p2.pass(game); 
-
-        assertThrows(Hive.IllegalMove.class, ()-> { p1.moveTile(game, 1, 0, 0, -1); });
+        assertThrows(Hive.IllegalMove.class, ()-> { p1.moveTile(game, 0, 0, -1, -1); });
     }
 }

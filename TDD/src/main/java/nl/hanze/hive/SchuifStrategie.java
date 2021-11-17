@@ -1,5 +1,7 @@
 package nl.hanze.hive;
 
+import nl.hanze.hive.Hive.IllegalMove;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
@@ -42,6 +44,16 @@ public class SchuifStrategie implements Strategy{
         //No blockage detected
         return false;
     }
+
+    @Override
+    public boolean canMoveTo(Board board, Coordinate oldCoordinate, Coordinate newCoordinate) {
+       
+        return true;
+    }
+
+    
+
+    
 
     
     

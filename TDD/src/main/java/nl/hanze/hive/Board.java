@@ -122,6 +122,10 @@ public class Board {
             // Also checks if both common neighbours have a tile in it.
             throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS HENK!");
         }
+        // Check if strat can move to the coordinate  
+        else if(!strat.canMoveTo(this, oldCoordinate, newCoordinate)){
+            throw new IllegalMove("JE KAN DAAR NIET NAARTOE BEWEGEN HENK!");
+        }
         else{
             // Remove tile from stack
             Tile moveTile = this.board.get(oldCoordinate).getStack().pop();

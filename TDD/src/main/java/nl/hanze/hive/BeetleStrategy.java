@@ -3,12 +3,19 @@ package nl.hanze.hive;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nl.hanze.hive.Hive.IllegalMove;
+
 public class BeetleStrategy extends SchuifStrategie {
 
     @Override
-    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
+        
+        if(from.getNeighbours().contains(to)){
+            return true;
+        }
+        
+        return false;
+
     }
 
     

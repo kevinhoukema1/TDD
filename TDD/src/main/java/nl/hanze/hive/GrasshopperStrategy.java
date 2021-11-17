@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 public class GrasshopperStrategy implements Strategy{
 
+    
     @Override
-    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
+        return true;
+
     }
 
     @Override
@@ -37,6 +38,12 @@ public class GrasshopperStrategy implements Strategy{
         
         //No blockage detected
         return false;
+    }
+
+    @Override
+    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

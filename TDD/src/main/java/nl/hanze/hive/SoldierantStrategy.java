@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SoldierantStrategy extends SchuifStrategie{
+   
     @Override
-    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
+        
+        return true;
+
     }
 }
