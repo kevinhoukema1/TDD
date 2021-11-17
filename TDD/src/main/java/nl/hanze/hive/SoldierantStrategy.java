@@ -29,8 +29,11 @@ public class SoldierantStrategy extends SchuifStrategie{
             if(newVisited.contains(neighbour)){
                 continue;
             }
-            if(!checkBlockingNeighbours(board, from, neighbour)){
-                searchPath(board, neighbour, newVisited);
+            if(!checkBlockingNeighbours(board, from, neighbour) 
+                && (board.getCurrentBoard().get(neighbour) == null 
+                || board.getCoordinateStack(neighbour).isEmpty()))    
+            {
+                    searchPath(board, neighbour, newVisited);
             }
         }
 

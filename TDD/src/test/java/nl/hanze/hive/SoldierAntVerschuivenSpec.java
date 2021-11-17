@@ -50,4 +50,24 @@ public class SoldierAntVerschuivenSpec {
 
         assertThrows(Hive.IllegalMove.class, () -> { p1.moveTile(game, 1, 0, 1, 0); });
     }
+
+    @Test //9C
+    void testIfSoldierAntCannotMoveOnTopOfTakeTiles() throws IllegalMove{
+       //arrange
+       HiveGame game = new HiveGame();
+       Player p1 = new Player(Hive.Player.WHITE);
+       Player p2 = new Player(Hive.Player.BLACK);
+
+       //act
+       p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
+       p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+
+       p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
+       p2.playTile(game, Hive.Tile.BEETLE, -1, -1);
+
+       p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
+       p2.pass(game);
+
+       assertThrows(Hive.IllegalMove.class, () -> {  p1.moveTile(game, 1, 0, 1, -1); });
+    }
 }
