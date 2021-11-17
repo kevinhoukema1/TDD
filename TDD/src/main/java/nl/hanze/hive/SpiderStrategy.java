@@ -6,11 +6,12 @@ import java.util.HashMap;
 public class SpiderStrategy extends SchuifStrategie{
 
     
+
     @Override
     public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
         ArrayList<Coordinate> availablePositions = searchPath(board, from, new ArrayList<>(), 0);
         
-        if(availablePositions.contains(to)){
+        if(availablePositions.contains(to) && !from.equals(to)){
             return true; 
         }
         return false;

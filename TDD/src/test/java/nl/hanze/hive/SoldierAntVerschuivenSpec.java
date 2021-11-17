@@ -52,7 +52,7 @@ public class SoldierAntVerschuivenSpec {
     }
 
     @Test //9C
-    void testIfSoldierAntCannotMoveOnTopOfTakeTiles() throws IllegalMove{
+    void testIfSoldierAntCannotMoveOnTopOfTakenTiles() throws IllegalMove{
        //arrange
        HiveGame game = new HiveGame();
        Player p1 = new Player(Hive.Player.WHITE);
