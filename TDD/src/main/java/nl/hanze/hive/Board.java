@@ -13,6 +13,7 @@ public class Board {
     private int beurt;
     public StratFactory factory;
 
+
     public Board(){
         this.board = new HashMap<>();
         this.beurt = 1;
@@ -57,7 +58,7 @@ public class Board {
                 throw new IllegalMove("SPEEL JE QUEEN HENK! " + currentPlayer);
             }
         }
-        if(legalMove(coordinate, currentPlayer)){
+        if(legalSet(coordinate, currentPlayer)){
             Tile tile = new Tile(hiveTile, currentPlayer);
             if(this.board.get(coordinate) != null ){
                 this.board.get(coordinate).putInStack(tile);
@@ -75,7 +76,7 @@ public class Board {
        
     }
     
-    public Boolean legalMove(Coordinate coordinate, Hive.Player currentPlayer){
+    public Boolean legalSet(Coordinate coordinate, Hive.Player currentPlayer){
         
         if(getCurrentBoard().isEmpty() || this.beurt <= 2){
             return true;
@@ -95,23 +96,18 @@ public class Board {
         return false;
     }
 
-    public Tile getTilePosition(Coordinate coordinate){
-        return this.board.get(coordinate).getStack().peek();
-
-    }
-    
-    public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
+    public Boolean legalMove(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
         Strategy strat = getStrat(getCoordinateStack(oldCoordinate).peek().getType());
         // check if the player has played a queen before being able to move.
         if(!checkForQueen(player)){
             
             throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
         }
-        // check if a move is legal
-        else if(!legalMove(newCoordinate, player)){
-            throw new IllegalMove("DIT IS GEEN LEGALE MOVE HENK!!");
+        // // check if a move is legal
+        // else if(!legalSet(newCoordinate, player)){
+        //     throw new IllegalMove("DIT IS GEEN LEGALE MOVE HENK!!");
 
-        }
+        // }
         // check if the move doesn't break a chain
         else if(chainBreak(oldCoordinate, newCoordinate, player)){
             
@@ -126,7 +122,19 @@ public class Board {
         else if(!strat.canMoveTo(this, oldCoordinate, newCoordinate)){
             throw new IllegalMove("JE KAN DAAR NIET NAARTOE BEWEGEN HENK!");
         }
-        else{
+
+        // no errors
+        return true;
+    }
+
+    public Tile getTilePosition(Coordinate coordinate){
+        return this.board.get(coordinate).getStack().peek();
+
+    }
+    
+    public void moveTile(Coordinate oldCoordinate, Coordinate newCoordinate, Hive.Player player) throws IllegalMove{
+        if(legalMove(oldCoordinate, newCoordinate, player)){
+
             // Remove tile from stack
             Tile moveTile = this.board.get(oldCoordinate).getStack().pop();
             
@@ -191,6 +199,7 @@ public class Board {
 
     }
 
+    // Seek loops through the board to see if multiple islands are created from a move.
     public ArrayList<Coordinate> seek(Coordinate coordinate, ArrayList<Coordinate> visited ) throws IllegalMove{
         // copy the arraylist of the given visited
         ArrayList<Coordinate> newVisited = visited;

@@ -17,7 +17,7 @@ public class SchuifStrategie implements Strategy{
     @Override
     public Boolean checkBlockingNeighbours(Board board, Coordinate from, Coordinate to) {
         // For now; if the stack is 2 high (aka a beelte is on there), it gets free reign
-        if(board.getCoordinateStack(from).size() == 2){
+        if(board.getCurrentBoard().get(from) != null && board.getCoordinateStack(from).size() == 2){
             return false;
         }
 
@@ -27,6 +27,10 @@ public class SchuifStrategie implements Strategy{
         
         // only keep the ones that overlap
         neighboursFrom.retainAll(neighboursTo);
+
+        if(neighboursFrom.size() < 2){
+            return false;
+        }
 
         // Check if either one is empty
         // If both are not empty, it means it is blocking. 

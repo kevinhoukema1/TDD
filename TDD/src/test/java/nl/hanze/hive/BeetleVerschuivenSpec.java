@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import nl.hanze.hive.Hive.IllegalMove;
 
-public class KeverVerschuivenSpec {
+public class BeetleVerschuivenSpec {
     @Test // 7A
     void testIfBeetleMovesAtLeastOneTile() throws IllegalMove{
         //Arrange
