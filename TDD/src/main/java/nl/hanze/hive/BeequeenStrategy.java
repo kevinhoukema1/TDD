@@ -13,6 +13,10 @@ public class BeequeenStrategy extends SchuifStrategie{
             return false;
         }
 
+        // check if tile is empty before move.
+        if(board.getCurrentBoard().get(to) != null && !board.getCoordinateStack(to).isEmpty()){
+            return false;
+        }
         
         return true;
 
