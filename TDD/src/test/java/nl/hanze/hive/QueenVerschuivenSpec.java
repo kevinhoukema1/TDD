@@ -60,7 +60,7 @@ public class QueenVerschuivenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
         p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
 
         assertThrows(Hive.IllegalMove.class, ()-> { p1.moveTile(game, 0, 0, 0, -1); });
 

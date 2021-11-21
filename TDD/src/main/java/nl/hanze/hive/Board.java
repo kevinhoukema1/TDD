@@ -70,7 +70,7 @@ public class Board {
             increaseTurn();
         }
         else{
-            throw new IllegalMove("DIT IS EEN ILLEGALE ZET HENK!");
+            throw new IllegalMove("DIT IS EEN ILLEGALE ZET VAN" + currentPlayer);
         }
     
        
@@ -101,7 +101,7 @@ public class Board {
         // check if the player has played a queen before being able to move.
         if(!checkForQueen(player)){
             
-            throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN HENK!");
+            throw new IllegalMove("JE HEBT EERST JE QUEEN NODIG VOORDAT JE KAN BEWEGEN " + player);
         }
         // // check if a move is legal
         // else if(!legalSet(newCoordinate, player)){
@@ -111,16 +111,16 @@ public class Board {
         // check if the move doesn't break a chain
         else if(chainBreak(oldCoordinate, newCoordinate, player)){
             
-            throw new IllegalMove("JE SLOOPT JE KETTING HENK!");
+            throw new IllegalMove("JE SLOOPT JE KETTING " + player);
         }
         //check if the location has available moves
         else if(strat.checkBlockingNeighbours(this, oldCoordinate, newCoordinate)){
             // Also checks if both common neighbours have a tile in it.
-            throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS HENK!");
+            throw new IllegalMove("JE HEBT BLOCKING NEIGHBOURS " + player);
         }
         // Check if strat can move to the coordinate  
         else if(!strat.canMoveTo(this, oldCoordinate, newCoordinate)){
-            throw new IllegalMove("JE KAN DAAR NIET NAARTOE BEWEGEN HENK!");
+            throw new IllegalMove("JE KAN DAAR NIET NAARTOE BEWEGEN " + player);
         }
 
         // no errors

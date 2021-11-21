@@ -45,7 +45,6 @@ public class PassenSpec {
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
-        p1.pass(game);
 
         //assert
         assertThrows(Hive.IllegalMove.class, () -> {  p1.pass(game); });

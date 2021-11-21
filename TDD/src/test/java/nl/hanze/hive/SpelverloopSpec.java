@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.TimeLimitExceededException;
 
@@ -51,7 +52,7 @@ public class SpelverloopSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
        
         p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 1);
 
         p1.moveTile(game, 1 , -1, 1, 0);
         
@@ -67,6 +68,14 @@ public class SpelverloopSpec {
         Player p2 = new Player(Hive.Player.BLACK);
 
         //act
+        //// REFACTOR AFTER 12
+        HashMap<Hive.Tile, Integer> p1RemainingTiles = p1.getTiles();
+        
+        for(Map.Entry<Hive.Tile, Integer> entry : p1RemainingTiles.entrySet()){
+            entry.setValue(0);
+        }
+        ////
+
         p1.pass(game);
 
         //assert
@@ -82,19 +91,29 @@ public class SpelverloopSpec {
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.pass(game);
-        p1.playTile(game, Hive.Tile.BEETLE, -1, 0);
-        p2.pass(game);
-        p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
-        p2.pass(game); 
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, -1);
-        p2.pass(game);
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
-        p2.pass(game);
-        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 0, 1);
-        p2.pass(game);
-        p1.playTile(game, Hive.Tile.SPIDER, -1, 1);
+        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
+        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+
+        p1.moveTile(game, 1, -1, 0, -1);
+        p2.moveTile(game, -2, 0, -1, -1);
+
+        p1.playTile(game, Hive.Tile.BEETLE, 0, 1);
+        p2.moveTile(game, -1, -1, -2, 0);
+
+        p1.moveTile(game, 0, 1, -1, 1);
+        p2.moveTile(game, -2, 0, -1, -1);
+
+        p1.playTile(game, Hive.Tile.SPIDER, 1, -1);
+        p2.moveTile(game, -1, -1, -2, 0);
+
+        p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
+        p2.moveTile(game, -2, 0, -1, -1);
+
+        p1.playTile(game, Hive.Tile.GRASSHOPPER, 0, 1);
+        p2.moveTile(game, -1, -1, -2, 0);
+        
         //assert
         assertTrue(game.isWinner(p2.getColour()));
         

@@ -27,7 +27,7 @@ public class SoldierAntVerschuivenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
         p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 1);
 
         p1.moveTile(game, 1, 0, -2, 0);
 
@@ -46,7 +46,7 @@ public class SoldierAntVerschuivenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
         p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 1);
 
         assertThrows(Hive.IllegalMove.class, () -> { p1.moveTile(game, 1, 0, 1, 0); });
     }
@@ -66,7 +66,7 @@ public class SoldierAntVerschuivenSpec {
        p2.playTile(game, Hive.Tile.BEETLE, -1, -1);
 
        p1.playTile(game, Hive.Tile.SOLDIER_ANT, 1, 0);
-       p2.pass(game);
+       p2.playTile(game, Hive.Tile.BEETLE, -2, 1);
 
        assertThrows(Hive.IllegalMove.class, () -> {  p1.moveTile(game, 1, 0, 1, -1); });
     }

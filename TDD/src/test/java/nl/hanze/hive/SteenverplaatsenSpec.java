@@ -26,7 +26,7 @@ public class SteenverplaatsenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
         p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
 
         p1.moveTile(game, 1, -1, 1, 0);
 
@@ -46,7 +46,7 @@ public class SteenverplaatsenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
        
         p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
 
         //assert
         assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 1, 0); });
@@ -64,7 +64,7 @@ public class SteenverplaatsenSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
         
         p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
 
         //assert
         assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 2, -1); });

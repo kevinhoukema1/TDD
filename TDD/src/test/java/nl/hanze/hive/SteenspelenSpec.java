@@ -84,13 +84,13 @@ public class SteenspelenSpec {
 
         //act
         p1.playTile(game, Hive.Tile.SPIDER, 0, 0);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.BEETLE, -1, 0);
-        p2.pass(game);
+        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
         
-        p1.playTile(game, Hive.Tile.BEETLE, 0, -1);
-        p2.pass(game); 
+        p1.playTile(game, Hive.Tile.BEETLE, 0, 1);
+        p2.playTile(game, Hive.Tile.SPIDER, -2, 1);
 
         //assert
         // error message if Queen hasn't been played on before the fourth turn.

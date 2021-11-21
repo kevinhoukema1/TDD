@@ -132,10 +132,10 @@ public class SpeelveldSpec {
         p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
 
         p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -2, 1);
 
         p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
-        p2.pass(game);
+        p2.playTile(game, Hive.Tile.BEETLE, -1, -1);
 
         p1.moveTile(game, 1, 0, 1, -1);
         
