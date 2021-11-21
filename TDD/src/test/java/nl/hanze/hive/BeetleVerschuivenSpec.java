@@ -52,5 +52,6 @@ public class BeetleVerschuivenSpec {
         p2.pass(game); 
 
         assertThrows(Hive.IllegalMove.class, ()-> { p1.moveTile(game, 1, 0, 0, -1); });
+        //Hallo
     }
 }

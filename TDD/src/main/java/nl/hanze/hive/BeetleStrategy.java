@@ -18,5 +18,8 @@ public class BeetleStrategy extends SchuifStrategie {
 
     }
 
+    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
+       return from.getNeighbours();
+    }
     
 }

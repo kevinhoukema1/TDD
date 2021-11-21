@@ -40,5 +40,8 @@ public class SoldierantStrategy extends SchuifStrategie{
         return visited;
     }
 
-
+    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
+        return searchPath(board, from, new ArrayList<>());
+    }
+    
 }

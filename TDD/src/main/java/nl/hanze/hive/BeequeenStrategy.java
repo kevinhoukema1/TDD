@@ -21,5 +21,19 @@ public class BeequeenStrategy extends SchuifStrategie{
         return true;
 
     }
-    
+    public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
+        ArrayList<Coordinate> availableMoves = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> neighbours = from.getNeighbours();
+
+        for(Coordinate neighbour : neighbours) {
+            if(!checkBlockingNeighbours(board, from, neighbour) 
+                && (board.getCurrentBoard().get(neighbour) == null 
+                || board.getCoordinateStack(neighbour).isEmpty()))    
+            {
+                    availableMoves.add(neighbour);
+            }
+        }
+        return availableMoves;
+    }
+     
 }

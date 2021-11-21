@@ -31,6 +31,16 @@ public class Player {
         return this.tiles;
     }
 
+    public boolean checkTiles(){
+        // check if any of your inventory is filled, if so you can place something.
+        for(int i : tiles.values()){
+            if(i > 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void playTile(HiveGame game, Hive.Tile tile, int q, int r) throws IllegalMove{
         if(game.getCurrentTurn() == this.colour){
@@ -65,7 +75,18 @@ public class Player {
     }
 
     public void pass(HiveGame game) throws IllegalMove{
-        game.pass();
+        // pass if current player has no more tiles or if no move can be made 
+        if(!checkTiles() && !game.getBoard().moveAvailable(getColour())){
+            game.pass();
+        }
+        else{
+            throw new IllegalMove("JE KAN NIET PASSEN HENK!");
+        }
     }
+
+
+
+
+    
             
 }

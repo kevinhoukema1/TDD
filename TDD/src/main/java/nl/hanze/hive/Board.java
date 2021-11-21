@@ -232,4 +232,38 @@ public class Board {
         return this.board.get(coordinate).getStack();
     }
 
+    public boolean moveAvailable(Hive.Player player){
+        // create factory to get strat movesets
+        StratFactory factory = new StratFactory();
+
+        // Loop through every position on le map
+        for(Map.Entry<Coordinate, TileStack> entry : getCurrentBoard().entrySet()){
+
+            // check the tile for the player and the type
+            Tile tile = entry.getValue().peek();
+
+            // get the player colour
+            Hive.Player tilePlayer = tile.getPlayer();
+            
+            //if the player equals the tileplayer we can check for the moveset.
+            if(player.equals(tilePlayer)){
+
+                // get the coordinate 
+                Coordinate from = entry.getKey();
+
+                // get the moveset from the factory
+                ArrayList<Coordinate> moves = factory.getStrat(tile.getType()).moveSet(this, from);
+
+                // if the moveset is not empty, a move can be done.
+                if(!moves.isEmpty()){
+                    return true;
+                }
+            }
+        }
+
+        // No moves are available so a false is returned.
+        return false;
+    }
+
+
 }
