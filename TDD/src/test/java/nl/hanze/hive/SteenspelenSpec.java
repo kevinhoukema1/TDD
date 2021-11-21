@@ -18,15 +18,15 @@ public class SteenspelenSpec {
     void testIfPlayerCantPlaySomethingHeDoesntHave() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
         
         //assert
-        assertThrows(Hive.IllegalMove.class, ()->{ p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, -1); });
+        assertThrows(Hive.IllegalMove.class, ()->{ game.play(Hive.Tile.QUEEN_BEE, 0, -1); });
     }
     
     @Test // 4B
@@ -34,7 +34,7 @@ public class SteenspelenSpec {
         // De opdracht zegt dat het op een leeg veld moet... Maar dit gaat tegen de stack mechanisme in... 
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -47,8 +47,8 @@ public class SteenspelenSpec {
     void testIfPlayedTileHasANeighbour() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
         
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -62,8 +62,8 @@ public class SteenspelenSpec {
     void testIfPlacedTileHasNoEnemyNeighboursIfAtLeastTwoTilesHaveBeenPlaced() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0); 
@@ -79,8 +79,8 @@ public class SteenspelenSpec {
     void testIfQueenBeeHasBeenPlacedWithinThreeTurnes() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.SPIDER, 0, 0);

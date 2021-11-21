@@ -21,8 +21,8 @@ public class PassenSpec {
     void testIfPlayerCanPlayWithNoInventory() throws IllegalMove{
        //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         HashMap<Hive.Tile, Integer> tiles = p1.getTiles();
@@ -39,8 +39,8 @@ public class PassenSpec {
     void testIfPlayerCannotPassIfPlaysAreAvailable() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -54,8 +54,8 @@ public class PassenSpec {
     void testIfcanPassWithNoMoreMoves() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         HashMap<Hive.Tile, Integer> p1RemainingTiles = p1.getTiles();

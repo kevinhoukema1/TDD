@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 import nl.hanze.hive.Hive.IllegalMove;
 
-public class Player {
+public class PlayerInventory {
     Hive.Player colour;
     HashMap<Hive.Tile, Integer> tiles;
 
-    public Player(Hive.Player colour){
+    public PlayerInventory(Hive.Player colour){
         this.tiles = new HashMap<Hive.Tile, Integer>();
         this.colour = colour;
         fillTiles();
@@ -43,10 +43,11 @@ public class Player {
 
 
     public void playTile(HiveGame game, Hive.Tile tile, int q, int r) throws IllegalMove{
-        if(game.getCurrentTurn() == this.colour){
+        if(game.getCurrentTurn().getColour() == this.colour){
             if(tiles.get(tile) > 0){
                 tiles.put(tile, tiles.get(tile) - 1); 
-                game.play(tile, q, r);
+                game.getBoard().setTile(new Coordinate(q,r), tile, getColour());
+                // game.play(tile, q, r);
                 if(game.isWinner(getColour())){
                     System.out.println(getColour() + "! You win :D");
                 }
@@ -66,8 +67,11 @@ public class Player {
     }
 
     public void moveTile(HiveGame game, int fromQ, int fromR, int toQ, int toR) throws IllegalMove{
-        if(game.getCurrentTurn() == this.colour){
-            game.move(fromQ, fromR, toQ, toR);
+        if(game.getCurrentTurn().getColour() == this.colour){
+            Coordinate from = new Coordinate(fromQ, fromR);
+            Coordinate to = new Coordinate(toQ, toR);
+            game.getBoard().moveTile(from, to, getColour());
+            // game.move(fromQ, fromR, toQ, toR);
         }
         else{
             throw new IllegalMove("HET IS JOUW BEURT NIET HENK!");
@@ -77,7 +81,8 @@ public class Player {
     public void pass(HiveGame game) throws IllegalMove{
         // pass if current player has no more tiles or if no move can be made 
         if(!checkTiles() && !game.getBoard().moveAvailable(getColour())){
-            game.pass();
+            // game.pass();
+            game.getBoard().increaseTurn();
         }
         else{
             throw new IllegalMove("JE KAN NIET PASSEN HENK!");

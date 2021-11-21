@@ -18,7 +18,7 @@ public class SpelmateriaalSpec {
     void testIfPlayerWhiteColourIsWhite(){
 
         //arrange
-        Player whiteTile = new Player(Hive.Player.WHITE);
+        PlayerInventory whiteTile = new PlayerInventory(Hive.Player.WHITE);
 
         //assert
         assertEquals(Hive.Player.WHITE, whiteTile.getColour());
@@ -29,7 +29,7 @@ public class SpelmateriaalSpec {
     void testIfPlayerBlackColourIsBlack(){
 
         //arrange
-        Player blackTile = new Player(Hive.Player.BLACK);
+        PlayerInventory blackTile = new PlayerInventory(Hive.Player.BLACK);
 
         
         //assert
@@ -97,7 +97,7 @@ public class SpelmateriaalSpec {
     @Test
     void testIfPlayerGetsCorrectAmmountOfQueenBee(){
         //Arrange
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //Act
         HashMap<Hive.Tile, Integer> p1Tiles =  p1.getTiles();
@@ -109,7 +109,7 @@ public class SpelmateriaalSpec {
     @Test
     void testIfPlayerGetsCorrectAmmountOfSpoders(){
         //Arrange
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //Act
         HashMap<Hive.Tile, Integer> p1Tiles =  p1.getTiles();
@@ -121,7 +121,7 @@ public class SpelmateriaalSpec {
     @Test
     void testIfPlayerGetsCorrectAmmountOfBeetle(){
         //Arrange
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //Act
         HashMap<Hive.Tile, Integer> p1Tiles =  p1.getTiles();
@@ -133,7 +133,7 @@ public class SpelmateriaalSpec {
     @Test
     void testIfPlayerGetsCorrectAmmountOfSS(){
         //Arrange
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //Act
         HashMap<Hive.Tile, Integer> p1Tiles =  p1.getTiles();
@@ -145,7 +145,7 @@ public class SpelmateriaalSpec {
     @Test
     void testIfPlayerGetsCorrectAmmountOfGrasshopper(){
         //Arrange
-        Player p1 = new Player(Hive.Player.WHITE);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
 
         //Act
         HashMap<Hive.Tile, Integer> p1Tiles =  p1.getTiles();

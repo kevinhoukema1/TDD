@@ -18,8 +18,8 @@ public class SteenverplaatsenSpec {
     void testIfPlayedTilesCanMove() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -38,8 +38,8 @@ public class SteenverplaatsenSpec {
     void testIfQueenIsPresentBeforeMoveCanBeDone() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK); 
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK); 
 
         //act
         p1.playTile(game, Hive.Tile.BEETLE, 0, 0);
@@ -56,8 +56,8 @@ public class SteenverplaatsenSpec {
     void testifTileHasNeighbourAfterMove() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);  
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);  
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -73,8 +73,8 @@ public class SteenverplaatsenSpec {
     @Test //5D
     void testIfMovingATileCreatesTwoGroups() throws IllegalMove{
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);  
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);  
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);

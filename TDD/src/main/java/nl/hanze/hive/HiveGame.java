@@ -9,8 +9,12 @@ public class HiveGame implements Hive {
     private Hive.Player currentPlayer;
     private Hive.Player winner;
 
+    public PlayerInventory playerWhite;
+    public PlayerInventory playerBlack;
 
     public HiveGame(){
+        playerWhite = new PlayerInventory(Hive.Player.WHITE);
+        playerBlack = new PlayerInventory(Hive.Player.BLACK);
         this.currentBoard = new Board();
         this.currentPlayer = Hive.Player.WHITE;
     }
@@ -21,24 +25,26 @@ public class HiveGame implements Hive {
 
     @Override
     public void play(Tile tile, int q, int r) throws IllegalMove {
-        
-        getBoard().setTile(new Coordinate(q,r), tile, this.currentPlayer);
+        getCurrentTurn().playTile(this, tile, q, r);
+        // getBoard().setTile(new Coordinate(q,r), tile, this.currentPlayer);
         
         swapTurn();
     }
 
     @Override
     public void move(int fromQ, int fromR, int toQ, int toR) throws IllegalMove {
-        Coordinate from = new Coordinate(fromQ, fromR);
-        Coordinate to = new Coordinate(toQ, toR);
+        getCurrentTurn().moveTile(this, fromQ, fromR, toQ, toR);
+        // Coordinate from = new Coordinate(fromQ, fromR);
+        // Coordinate to = new Coordinate(toQ, toR);
         
-        getBoard().moveTile(from, to, this.currentPlayer);
+        // getBoard().moveTile(from, to, this.currentPlayer);
         swapTurn();
     }
 
     @Override
     public void pass() throws IllegalMove {
-        getBoard().increaseTurn();
+        // getBoard().increaseTurn();
+        getCurrentTurn().pass(this);
         swapTurn();
         
     }
@@ -93,8 +99,8 @@ public class HiveGame implements Hive {
         this.currentPlayer = (this.currentPlayer.equals(Hive.Player.WHITE) ? Hive.Player.BLACK : Hive.Player.WHITE);
     }
 
-    public Hive.Player getCurrentTurn(){
-        return this.currentPlayer;
+    public PlayerInventory getCurrentTurn(){
+        return (this.currentPlayer.equals(Hive.Player.WHITE) ? playerWhite : playerBlack);
     }
     
 

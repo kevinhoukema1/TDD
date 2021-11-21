@@ -16,11 +16,28 @@ import nl.hanze.hive.Hive.IllegalMove;
 
 public class SoldierAntVerschuivenSpec {
     @Test //9a
+    void testIfSoldierAntCanMoveInfinitely2() throws IllegalMove{
+        //arrange
+        HiveGame game = new HiveGame();
+
+        //act
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
+
+        game.play(Hive.Tile.SOLDIER_ANT, 1, 0);
+        game.play(Hive.Tile.BEETLE, -2, 1);
+
+        game.move(1, 0, -2, 0);
+
+        assertEquals(Hive.Tile.SOLDIER_ANT,  game.getBoard().getTilePosition(new Coordinate(-2, 0)).getType());
+    }
+
+    @Test //9a
     void testIfSoldierAntCanMoveInfinitely() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -38,8 +55,8 @@ public class SoldierAntVerschuivenSpec {
     void testIfSoldierAntCannotMoveToItsOwnPosition() throws Exception {
        //arrange
         HiveGame game = new HiveGame();
-        Player p1 = new Player(Hive.Player.WHITE);
-        Player p2 = new Player(Hive.Player.BLACK);
+        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
         p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
@@ -55,8 +72,8 @@ public class SoldierAntVerschuivenSpec {
     void testIfSoldierAntCannotMoveOnTopOfTakenTiles() throws IllegalMove{
        //arrange
        HiveGame game = new HiveGame();
-       Player p1 = new Player(Hive.Player.WHITE);
-       Player p2 = new Player(Hive.Player.BLACK);
+       PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
+       PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
        //act
        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
