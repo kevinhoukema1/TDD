@@ -8,42 +8,61 @@ public class GrasshopperStrategy implements Strategy{
     
     @Override
     public boolean canMoveTo(Board board, Coordinate from, Coordinate to) {
-        return true;
-
-    }
-
-    @Override
-    public Boolean checkBlockingNeighbours(Board board, Coordinate from, Coordinate to) {
-        // For now; if the stack is 2 high (aka a beelte is on there), it gets free reign
-        if(board.getCoordinateStack(from).size() == 2){
-            return false;
-        }
-
-        // get all from and to neighbours
-        ArrayList<Coordinate> neighboursFrom = from.getNeighbours();
-        ArrayList<Coordinate> neighboursTo = to.getNeighbours();
-        
-        // only keep the ones that overlap
-        neighboursFrom.retainAll(neighboursTo);
-
-        // Check if either one is empty
-        Boolean neighbourOne = board.getCoordinateStack(neighboursFrom.get(0)).isEmpty();
-        Boolean neighbourTwo = board.getCoordinateStack(neighboursFrom.get(1)).isEmpty();
-
-        // If both are not empty, it means it is blocking. 
-        //If only one is empty but the other one isn't, there is no blockage
-        if(!neighbourOne && !neighbourTwo){
+        // if the moveset contains the required position. it returns true
+        if(moveSet(board, from).contains(to) && !from.equals(to) && !from.getNeighbours().contains(to)){
             return true;
-        }
         
-        //No blockage detected
+        } 
+        
+        //else false
         return false;
+       
+
     }
+
 
     @Override
     public ArrayList<Coordinate> moveSet(Board board, Coordinate from) {
-        // TODO Auto-generated method stub
-        return null;
+        //create new list to set a list of all moves within the line
+        ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
+
+        //create a list of all directions to loop through
+        int[][] directies = {{-1, 0}, {0, -1}, {1, -1}, {1, 0}, {0, 1}, {-1, 1}};
+        
+        for(int[] directie : directies){
+            // add for every direction all available moves from that line
+            moves.add(jump(board, from, directie[0], directie[1]));
+        }
+        
+        //Now we created a list of every spot the grasshopper can jump to.
+        return moves;
     }
+
+    public Coordinate jump(Board board, Coordinate from, int q, int r){
+
+        // set the next cord with the direction given. (current qr + the +-1 or 0 from the direction)
+        Coordinate coord = new Coordinate(from.q + q, from.r + r);
+
+        // check if the spot is empty or not
+        if(board.getCurrentBoard().get(coord) != null && !board.getCoordinateStack(coord).isEmpty())
+        {
+        
+            // if the spot is not empty we can continue jumping
+           return jump(board, coord, q, r);
+        }
+        else{
+            // if the spot is empty we return the list of available positions
+            // The hopper cannot hop to an occupied space because the recursive function does not add it to the spotlist.
+            return coord;
+        }
+    }
+
+
+    @Override
+    public Boolean checkBlockingNeighbours(Board board, Coordinate from, Coordinate to) {
+        //unused function for the grasshopper
+        return false;
+    }
+   
     
 }

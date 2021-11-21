@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Coordinate {
-    private int q;
-    private int r;
+    public int q;
+    public int r;
 
     public Coordinate(int q, int r){
         this.q = q;
