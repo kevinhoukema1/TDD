@@ -95,7 +95,7 @@ public class SpeelveldSpec {
         game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
         game.play(Hive.Tile.BEETLE, 1, 0);
-        game.pass();
+        game.play(Hive.Tile.BEETLE, -2, 0);
        
         game.move(1, 0, 1, -1);
 

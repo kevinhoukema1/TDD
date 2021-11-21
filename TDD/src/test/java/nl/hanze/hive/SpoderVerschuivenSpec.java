@@ -21,17 +21,15 @@ public class SpoderVerschuivenSpec {
     void testIfSpoderMovesAtPreciselyThreeTiles() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.SPIDER, 1, 0);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
-        p1.moveTile(game, 1, 0, -2, 1);
+        game.move(1, 0, -2, 1);
 
         assertEquals(Hive.Tile.SPIDER,  game.getBoard().getTilePosition(new Coordinate(-2, 1)).getType());
     }
@@ -40,17 +38,15 @@ public class SpoderVerschuivenSpec {
     void testIfSpoderNoMoreThanThreeTiles() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
-        p2.playTile(game, Hive.Tile.SPIDER, -2, 0);
+        game.play(Hive.Tile.SPIDER, 1, 0);
+        game.play(Hive.Tile.SPIDER, -2, 0);
 
-        assertThrows(Hive.IllegalMove.class, ()-> { p1.moveTile(game, 1, 0, -2, -1); });
+        assertThrows(Hive.IllegalMove.class, ()-> { game.move(1, 0, -2, -1); });
 
     }
 
@@ -58,17 +54,15 @@ public class SpoderVerschuivenSpec {
     void testIfSpiderCannotMoveToItsCurrentPosition() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.SPIDER, 1, 0);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
-        assertThrows(Hive.IllegalMove.class, () -> { p1.moveTile(game, 1, 0, 1, 0); });
+        assertThrows(Hive.IllegalMove.class, () -> { game.move(1, 0, 1, 0); });
     }
 
 
@@ -76,20 +70,18 @@ public class SpoderVerschuivenSpec {
     void testIfSpiderCannotMoveOnTopOfTakenTiles() throws IllegalMove{
        //arrange
        HiveGame game = new HiveGame();
-       PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-       PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
        //act
-       p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-       p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+       game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+       game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
-       p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-       p2.playTile(game, Hive.Tile.BEETLE, -1, -1);
+       game.play(Hive.Tile.BEETLE, 1, -1);
+       game.play(Hive.Tile.BEETLE, -1, -1);
 
-       p1.playTile(game, Hive.Tile.SPIDER, 1, 0);
-       p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+       game.play(Hive.Tile.SPIDER, 1, 0);
+       game.play(Hive.Tile.BEETLE, -2, 0);
 
-       assertThrows(Hive.IllegalMove.class, () -> {  p1.moveTile(game, 1, 0, 1, -1); });
+       assertThrows(Hive.IllegalMove.class, () -> {  game.move(1, 0, 1, -1); });
     }
 
     // 10D 

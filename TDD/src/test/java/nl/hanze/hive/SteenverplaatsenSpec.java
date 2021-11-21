@@ -18,17 +18,15 @@ public class SteenverplaatsenSpec {
     void testIfPlayedTilesCanMove() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
-        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.BEETLE, 1, -1);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
-        p1.moveTile(game, 1, -1, 1, 0);
+        game.move(1, -1, 1, 0);
 
         //assert
         assertEquals(Hive.Tile.BEETLE, game.getBoard().getCoordinateStack(new Coordinate(1,0)).peek().getType());
@@ -38,53 +36,47 @@ public class SteenverplaatsenSpec {
     void testIfQueenIsPresentBeforeMoveCanBeDone() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK); 
 
         //act
-        p1.playTile(game, Hive.Tile.BEETLE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.BEETLE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
        
-        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.BEETLE, 1, -1);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
         //assert
-        assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 1, 0); });
+        assertThrows(Hive.IllegalMove.class, ()->{ game.move(1, -1, 1, 0); });
     }
 
     @Test //5C
     void testifTileHasNeighbourAfterMove() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);  
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
         
-        p1.playTile(game, Hive.Tile.BEETLE, 1, -1);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.BEETLE, 1, -1);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
         //assert
-        assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 1, -1, 2, -1); });
+        assertThrows(Hive.IllegalMove.class, ()->{ game.move(1, -1, 2, -1); });
     }
 
     @Test //5D
     void testIfMovingATileCreatesTwoGroups() throws IllegalMove{
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);  
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
         
-        p1.playTile(game, Hive.Tile.BEETLE, 1, 0);
-        p2.playTile(game, Hive.Tile.BEETLE, -2, 0);
+        game.play(Hive.Tile.BEETLE, 1, 0);
+        game.play(Hive.Tile.BEETLE, -2, 0);
 
        //assert
-       assertThrows(Hive.IllegalMove.class, ()->{ p1.moveTile(game, 0, 0, 1, -1); }); 
+       assertThrows(Hive.IllegalMove.class, ()->{  game.move(0, 0, 1, -1); }); 
     }
 
     @Test //5E

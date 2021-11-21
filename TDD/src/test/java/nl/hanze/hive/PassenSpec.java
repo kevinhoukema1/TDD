@@ -21,52 +21,47 @@ public class PassenSpec {
     void testIfPlayerCanPlayWithNoInventory() throws IllegalMove{
        //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
+
 
         //act
-        HashMap<Hive.Tile, Integer> tiles = p1.getTiles();
+        HashMap<Hive.Tile, Integer> tiles = game.getCurrentTurn().getTiles();
         
         for(Map.Entry<Hive.Tile, Integer> entry : tiles.entrySet()){
             entry.setValue(0);
         }
 
         //assert
-        assertThrows(Hive.IllegalMove.class, () -> {  p1.playTile(game, Hive.Tile.BEETLE, 0, 0); });
+        assertThrows(Hive.IllegalMove.class, () -> {  game.play(Hive.Tile.BEETLE, 0, 0); });
     }
 
     @Test //12.2
     void testIfPlayerCannotPassIfPlaysAreAvailable() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        p1.playTile(game, Hive.Tile.QUEEN_BEE, 0, 0);
-        p2.playTile(game, Hive.Tile.QUEEN_BEE, -1, 0);
+        game.play(Hive.Tile.QUEEN_BEE, 0, 0);
+        game.play(Hive.Tile.QUEEN_BEE, -1, 0);
 
         //assert
-        assertThrows(Hive.IllegalMove.class, () -> {  p1.pass(game); });
+        assertThrows(Hive.IllegalMove.class, () -> {  game.pass(); });
     }
     
     @Test //12.3
     void testIfcanPassWithNoMoreMoves() throws IllegalMove{
         //arrange
         HiveGame game = new HiveGame();
-        PlayerInventory p1 = new PlayerInventory(Hive.Player.WHITE);
-        PlayerInventory p2 = new PlayerInventory(Hive.Player.BLACK);
 
         //act
-        HashMap<Hive.Tile, Integer> p1RemainingTiles = p1.getTiles();
+        HashMap<Hive.Tile, Integer> p1RemainingTiles = game.getCurrentTurn().getTiles();
         
         for(Map.Entry<Hive.Tile, Integer> entry : p1RemainingTiles.entrySet()){
             entry.setValue(0);
         }
 
-        p1.pass(game); // white starts but passes with no moves available
+        game.pass(); // white starts but passes with no moves available
         
         // assert
-        assertEquals(game.getCurrentTurn(), p2.getColour());
+        assertEquals(game.getCurrentTurn().getColour(), Hive.Player.BLACK);
     }
 }
